@@ -1,0 +1,102 @@
+class calculator:
+    print("Press 'q' in the 'Input operation' field to quit")
+    print("Press 'r' to reset")
+
+    @staticmethod
+    def result_operation(Result):
+        print(Result)
+
+    @staticmethod
+    def close():
+        CloseProgramm = input("Press 'q' to quit: ")
+        if CloseProgramm.lower() == "q":
+            print("The program will be closed")
+
+    @staticmethod
+    def exit_p():
+        e = input("Do you want to exit the program? (Yes or No): ")
+        if e.lower() == "yes":
+            calculator.close()
+        else:
+            calculator.calculator()
+
+    @staticmethod
+    def reset():
+        print("Numbers were reset")
+        return None
+
+    @staticmethod
+    def perform_operation(num1, num2, Operation):
+        if Operation == "+":
+            return num1 + num2
+        elif Operation == "-":
+            return num1 - num2
+        elif Operation == "*":
+            return num1 * num2
+        elif Operation == "/":
+            return num1 / num2
+        elif Operation == "/":
+            if num2 == 0:
+                print("Error: Division by zero")
+                return None
+            return num1 / num2
+
+    @staticmethod
+    def calculator():
+        CloseProgramm = None
+        Result = None
+        error = None
+        l = None
+        while CloseProgramm != "q":
+            FirstNumber = float(input("Input number: "))
+            Operation = input("Input operation: ")
+
+            if Operation != "q" and Operation != "r":
+                SecondNumber = float(input("Input number: "))
+            else:
+                if (Operation == "r"):
+                    calculator.reset()
+                    break
+                if (Operation == "q"):
+                    calculator.exit_p()
+                    break
+
+            while (l != "="):
+                if Operation in ["+", "-", "*", "/"]:
+                    Result = calculator.perform_operation(FirstNumber, SecondNumber, Operation)
+                    l = input()
+                    if l == "=":
+                        if Result is not None:
+                            calculator.result_operation(Result)
+                            break
+                        else:
+                            calculator.calculator()
+                    elif l == "w":
+                        continue
+                    else:
+                        error = True
+                        print ("Error1")
+                    if l in ["+", "-", "*", "/"]:
+                        Result = calculator.perform_operation(FirstNumber, SecondNumber, Operation)
+                        calculator.calculator()
+                    else:
+                        error = True
+                        print("Error2")
+                elif Operation == "r":
+                    calculator.reset()
+                    break
+
+            else:
+                error = True
+                print("Error3")
+                break
+
+        if CloseProgramm != "q" and error is None:
+            print(Result if Result is not None else 0)
+        if Operation == "q":
+            calculator.exit_p()
+            calculator.close()
+
+
+if __name__ == "__main__":
+    calculator.calculator()
